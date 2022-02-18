@@ -5,8 +5,7 @@ body
     background-color: black;
     color: rgb(0, 255, 0);
     font-family: monospace;
-    /*line-height: 0;*/
-    font-size:1.25em;
+    font-size:20px;
 }
 .show-inside
 {
