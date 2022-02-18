@@ -1,0 +1,33 @@
+
+body
+{
+    margin: 20px;
+    background-color: black;
+    color: rgb(0, 255, 0);
+    font-family: monospace;
+    /*line-height: 0;*/
+    font-size:1.25em;
+}
+.show-inside
+{
+    transition:all 1s;
+    background-color: white;
+    color:black;
+}
+body p
+{
+    margin:0;
+}
+.center
+{
+    text-align:center;
+}
+#hints
+{
+    opacity:0;
+    transition: opacity 1s 0.5s linear;
+}
+.hints-show
+{
+    opacity:1 !important;
+}
