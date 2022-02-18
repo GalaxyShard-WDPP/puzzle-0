@@ -2,7 +2,7 @@
 let line = document.createElement("p");
 document.getElementById("text").appendChild(line);
 
-let string = "You scanned the QR code!<br>Try reading it yourself, and youll find a new place.<br>";
+let string = "You scanned the QR code!<br>Try reading it yourself, and you will find something interesting.<br>";
 var index = 0;
 //document.getElementById("hints").style.opacity = 0;
 function showHints()

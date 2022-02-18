@@ -22,6 +22,11 @@ body p
 {
     text-align:center;
 }
+.center-img
+{
+    display:block;
+    margin:0 auto 0 auto;
+}
 #hints
 {
     opacity:0;
