@@ -27,6 +27,10 @@ body p
     display:block;
     margin:0 auto 0 auto;
 }
+.pixelated-img
+{
+    image-rendering: pixelated;
+}
 #hints
 {
     opacity:0;
