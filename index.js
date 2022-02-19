@@ -16,8 +16,11 @@ function resetCanvas()
 }
 function fixView()
 {
-    canvas.width = window.innerWidth * 0.8;
-    canvas.height = 400;
+    if (canvas.width - (window.innerWidth * 0.8) > 5)
+    {
+        canvas.width = window.innerWidth * 0.8;
+        canvas.height = 400;
+    }
 }
 fixView();
 function draw_line(x, y)
