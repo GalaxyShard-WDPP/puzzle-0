@@ -23,14 +23,11 @@ fixView();
 function draw_e(e)
 {
     if (!isMousePressed) return;
-    console.log("drawing...");
+    e.preventDefault();
     context.beginPath();
     context.moveTo(prevX, prevY);
-    //var currentX = e.clientX - canvas.offsetLeft;
-    //var currentY = e.clientY - canvas.offsetTop;
     var currentX = e.clientX - canvas.getBoundingClientRect().left;
     var currentY = e.clientY - canvas.getBoundingClientRect().top;
-    //canvas.getBoundingClientRect().left canvas.getBoundingClientRect().top
     context.lineTo(currentX, currentY);
     context.lineWidth = 2;
     context.strokeStyle = "black";
@@ -43,12 +40,9 @@ window.addEventListener("resize", fixView);
 function startDraw()
 {
     isMousePressed = 1;
-    //prevX = e.clientX - canvas.offsetLeft;
-    //prevY = e.clientY - canvas.offsetTop;
     prevX = e.clientX - canvas.getBoundingClientRect().left;
     prevY = e.clientY - canvas.getBoundingClientRect().top;
     draw_e(e);
-    e.preventDefault();
 }
 function endDraw() { isMousePressed = 0; }
 canvas.addEventListener("mousedown", startDraw);
