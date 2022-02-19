@@ -17,6 +17,11 @@ body
 body p
 {
     margin:0;
+    /*line-height: 1.25em;*/
+}
+#hints p
+{
+    line-height: 1.5em;
 }
 .center
 {
