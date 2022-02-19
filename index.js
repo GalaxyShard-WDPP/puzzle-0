@@ -2,15 +2,16 @@
 let line = document.createElement("p");
 document.getElementById("text").appendChild(line);
 
-let string = "You scanned the QR code!<br>Try reading it yourself, and you will discover something interesting.<br>";
+let string = "You scanned the QR code!<br>If you read it yourself, you may discover something interesting.<br>";
 var index = 0;
-//document.getElementById("hints").style.opacity = 0;
 function showHints()
 {
-    //console.log("showing hints")
     document.body.classList.add("show-inside");
-    document.getElementById("hints").classList.add("hints-show");
-    //console.log("showed hints");
+    //document.getElementById("hints").style.display = "block";
+    
+    let hints = document.getElementById("hints");
+    hints.hidden = false;
+    setInterval(function(){hints.classList.add("hints-show");},0);
 }
 
 function writeText()
@@ -21,14 +22,14 @@ function writeText()
         if (string.charAt(index) == "<")
         {
             let lastIndex = index;
-            index = string.indexOf(">", index)+1;
+            index = string.indexOf(">", lastIndex)+1;
             line.innerHTML += string.substring(lastIndex, index);
             clearInterval(id);
             setTimeout(writeText, 500);
         }
-        if (index >= string.length)
+        else if (index >= string.length)
         {
-            showHints();
+            setTimeout(showHints, 500);
             clearInterval(id);
         }
     }, 25);

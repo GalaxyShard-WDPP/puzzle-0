@@ -2,35 +2,36 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://galaxyshard.github.io/web-libraries/grid.css" type="text/css">-->
     <title>Puzzle 0</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
 
+    <!-- bit is at (12, -5) from top left, last bit of 49th letter -->
     <!--<h1 class="center">you scanned the qr code!</h1>-->
     <!--<p>you scanned the qr code!</p>
     <p>if you had decoded it by hand, you wouldn't be here.</p>
     <p></p>-->
     <span id="text"></span>
-    <div id="hints">
+    <div hidden id="hints">
         <br>
         <img class="center-img" height=150px src="https://i.ytimg.com/vi/A39kX1_5ssY/maxresdefault.jpg" alt="link">
         <h1 class="center">Puzzle 00 - decrypting the code</h1>
         <img class="pixelated-img" height=200px src="https://i.imgur.com/r8SxQQ4.png" alt="link">
+        <p>To input a solution, <span class="vital">type the correct message into the search bar.</span></p>
+        <br>
         <p>
             Shown above is a digital copy of the original QR code.
-            The computer accidentally read the message incorrectly! The computer thought that one of the pixels (bits) had been white (0) instead of black (1).
-            In order to interpret the original message, it will need to be manually fixed. Use the following information to fix the website link
+            The computer accidentally read the code incorrectly! It thought that one of the pixels (bits) had been white (0) instead of black (1), resulting in a part of the link changing.
+            In order to interpret the original message, it will need to be manually fixed.<br><span class="vital">Use the following information to fix the website link</span>
         </p>
         <br>
-        <ul>
-            <li></li>
-            <!--<li>The QR code is encoded in ASCII.</li>-->
-            <!--<li>The bit that was accidentally flipped is a part of the last letter in the link from the QR code</li>-->
-            <!--<li>Each character is 8 bits</li>-->
-        </ul>
-        <p></p>
+        <p>
+            The letter that was changed by the QR scanner should have been equal to the highest letter, in the order of the alphabet, found in the first half of the link.<br>
+            Instead, the scanner replaced that letter with the one just below the correct letter.
+        </p>
         <!--<p>One square will need to swap colors in order to read it correctly.</p>-->
     </div>
 
