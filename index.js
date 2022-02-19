@@ -14,6 +14,12 @@ function resetCanvas()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
+function fixView()
+{
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = 400;
+}
+fixView();
 function draw_e(e)
 {
     if (!isMousePressed) return;
@@ -33,11 +39,7 @@ function draw_e(e)
     prevX = currentX;
     prevY = currentY;
 }
-window.addEventListener("resize", function()
-{
-    canvas.width = window.innerWidth * 0.8;
-    canvas.height = 400;
-});
+window.addEventListener("resize", fixView);
 canvas.addEventListener("mousedown", function(e)
 {
     isMousePressed = 1;
