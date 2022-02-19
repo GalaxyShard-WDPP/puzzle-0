@@ -51,3 +51,11 @@ body p
 {
     color:rgb(192, 0, 0);
 }
+#draw
+{
+    border:2px #000000 solid;
+    /*width: 90%;*/
+    /*height:400px;*/
+    display:block;
+    margin:0 auto 0 auto;
+}
