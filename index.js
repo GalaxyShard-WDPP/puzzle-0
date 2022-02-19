@@ -20,39 +20,61 @@ function fixView()
     canvas.height = 400;
 }
 fixView();
-function draw_e(e)
+function draw_line(x, y)
 {
     if (!isMousePressed) return;
-    e.preventDefault();
     context.beginPath();
     context.moveTo(prevX, prevY);
-    var currentX = e.clientX - canvas.getBoundingClientRect().left;
-    var currentY = e.clientY - canvas.getBoundingClientRect().top;
-    context.lineTo(currentX, currentY);
+    //var currentX = e.clientX - canvas.getBoundingClientRect().left;
+    //var currentY = e.clientY - canvas.getBoundingClientRect().top;
+    context.lineTo(x, y);
     context.lineWidth = 2;
     context.strokeStyle = "black";
     context.stroke();
     context.closePath();
-    prevX = currentX;
-    prevY = currentY;
+    prevX = x;
+    prevY = y;
+
 }
 window.addEventListener("resize", fixView);
-function startDraw()
+//function startDraw()
+//{
+    //isMousePressed = 1;
+    //draw_e(e);
+//}
+function endDraw() { isMousePressed = 0; }
+canvas.addEventListener("mousedown", function(e)
 {
-    isMousePressed = 1;
     prevX = e.clientX - canvas.getBoundingClientRect().left;
     prevY = e.clientY - canvas.getBoundingClientRect().top;
-    draw_e(e);
-}
-function endDraw() { isMousePressed = 0; }
-canvas.addEventListener("mousedown", startDraw);
-canvas.addEventListener("touchstart", startDraw);
+    //startDraw();
+    isMousePressed = 1;
+    draw_line(prevX, prevY);
+});
+canvas.addEventListener("touchstart", function(e)
+{
+    var touch = e.changedTouches[0];
+    prevX = touch.clientX - canvas.getBoundingClientRect().left;
+    prevY = touch.clientY - canvas.getBoundingClientRect().top;
+    //startDraw();
+    isMousePressed = 1;
+    draw_line(prevX, prevY);
+});
 canvas.addEventListener("touchend", endDraw);
 canvas.addEventListener("touchcancel", endDraw);
 canvas.addEventListener("mouseup", endDraw);
 canvas.addEventListener("mouseout", endDraw);
-canvas.addEventListener("mousemove", draw_e);
-canvas.addEventListener("touchmove", draw_e);
+canvas.addEventListener("mousemove", function(e)
+{
+    draw_line(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
+});
+canvas.addEventListener("touchmove", function(e)
+{
+    if (!isMousePressed) return;
+    e.preventDefault();
+    var touch = e.changedTouches[0];
+    draw_line(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
+});
 
 function showHints()
 {
