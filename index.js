@@ -40,7 +40,7 @@ function draw_e(e)
     prevY = currentY;
 }
 window.addEventListener("resize", fixView);
-canvas.addEventListener("mousedown", function(e)
+function startDraw()
 {
     isMousePressed = 1;
     //prevX = e.clientX - canvas.offsetLeft;
@@ -48,13 +48,16 @@ canvas.addEventListener("mousedown", function(e)
     prevX = e.clientX - canvas.getBoundingClientRect().left;
     prevY = e.clientY - canvas.getBoundingClientRect().top;
     draw_e(e);
-});
-canvas.addEventListener("mouseup", function(e)
-{
-    isMousePressed = 0;
-});
-canvas.addEventListener("mouseout", function(e) { isMousePressed = 0; });
+}
+function endDraw() { isMousePressed = 0; }
+canvas.addEventListener("mousedown", startDraw);
+canvas.addEventListener("touchstart", startDraw);
+canvas.addEventListener("touchend", endDraw);
+canvas.addEventListener("touchcancel", endDraw);
+canvas.addEventListener("mouseup", endDraw);
+canvas.addEventListener("mouseout", endDraw);
 canvas.addEventListener("mousemove", draw_e);
+canvas.addEventListener("touchmove", draw_e);
 
 function showHints()
 {
