@@ -5,39 +5,72 @@ document.getElementById("text").appendChild(line);
 let string = "You scanned the QR code!<br>If you read it yourself, you may discover something interesting.<br>";
 var index = 0;
 
-
 var canvas = document.getElementById("draw");
+var copyCanvas = document.createElement("canvas");
+var copyContext = copyCanvas.getContext("2d");
 var context = canvas.getContext("2d");
 var isMousePressed;
 var prevX, prevY;
+var isPencil = true;
+function swapTool()
+{
+    isPencil = !isPencil;
+    document.getElementById("toolBtn").innerHTML = isPencil ? "Use Eraser" : "Use Pencil";
+}
 function resetCanvas()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 function fixView()
 {
-    if (Math.abs(canvas.width - (window.innerWidth * 0.8)) > 5)
-    {
-        canvas.width = window.innerWidth * 0.8;
-        canvas.height = 400;
-    }
+    //if (Math.abs(canvas.width - (window.innerWidth * 0.8)) > 1)
+    //{
+    copyContext.drawImage(canvas, 0, 0);
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = 400;
+    context.drawImage(copyCanvas, 0, 0);
+    //}
 }
 fixView();
 function draw_line(x, y)
 {
     if (!isMousePressed) return;
     context.beginPath();
-    context.moveTo(prevX, prevY);
-    //var currentX = e.clientX - canvas.getBoundingClientRect().left;
-    //var currentY = e.clientY - canvas.getBoundingClientRect().top;
-    context.lineTo(x, y);
-    context.lineWidth = 2;
-    context.strokeStyle = "black";
-    context.stroke();
-    context.closePath();
-    prevX = x;
-    prevY = y;
-
+    var tempX = x;
+    var tempY = y;
+    if (isPencil)
+    {
+        context.lineWidth = 2;
+        context.strokeStyle = "black";
+        context.moveTo(prevX, prevY);
+        context.lineTo(x, y);
+        context.stroke();
+        context.closePath();
+    }
+    else
+    {
+        if (Math.abs(y - prevY) > Math.abs(x - prevX))
+        {
+            x = prevX;
+        }
+        else
+        {
+            y = prevY;
+        }
+        context.lineWidth = 20;
+        context.strokeStyle = "white";
+        context.moveTo(prevX, prevY);
+        context.lineTo(x, y);
+        context.stroke();
+        context.closePath();
+        //context.fillStyle = "black";
+        //context.moveTo(x,y);
+        //context.arc(x, y, 50, 0, 2 * Math.pi, false);
+        //context.fill();
+        //context.closePath();
+    }
+    prevX = tempX;
+    prevY = tempY;
 }
 window.addEventListener("resize", fixView);
 //function startDraw()
@@ -63,10 +96,13 @@ canvas.addEventListener("touchstart", function(e)
     isMousePressed = 1;
     draw_line(prevX, prevY);
 });
-canvas.addEventListener("touchend", endDraw);
-canvas.addEventListener("touchcancel", endDraw);
-canvas.addEventListener("mouseup", endDraw);
-canvas.addEventListener("mouseout", endDraw);
+//canvas.addEventListener("touchend", endDraw);
+//canvas.addEventListener("touchcancel", endDraw);
+//canvas.addEventListener("mouseup", endDraw);
+document.documentElement.addEventListener("mouseup", endDraw);
+document.documentElement.addEventListener("touchend", endDraw);
+document.documentElement.addEventListener("touchcancel", endDraw);
+//canvas.addEventListener("mouseout", endDraw);
 canvas.addEventListener("mousemove", function(e)
 {
     draw_line(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
