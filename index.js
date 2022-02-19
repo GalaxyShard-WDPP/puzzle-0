@@ -16,7 +16,7 @@ function resetCanvas()
 }
 function fixView()
 {
-    if (canvas.width - (window.innerWidth * 0.8) > 5)
+    if (Math.abs(canvas.width - (window.innerWidth * 0.8)) > 5)
     {
         canvas.width = window.innerWidth * 0.8;
         canvas.height = 400;
