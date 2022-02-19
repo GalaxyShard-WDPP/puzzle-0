@@ -48,6 +48,7 @@ function startDraw()
     prevX = e.clientX - canvas.getBoundingClientRect().left;
     prevY = e.clientY - canvas.getBoundingClientRect().top;
     draw_e(e);
+    e.preventDefault();
 }
 function endDraw() { isMousePressed = 0; }
 canvas.addEventListener("mousedown", startDraw);
