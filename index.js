@@ -21,13 +21,20 @@ function resetCanvas()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
     copyContext.clearRect(0, 0, canvas.width, canvas.height);
+    copyCanvas.width = window.innerWidth * 0.8;
+    copyCanvas.height = 400;
+    canvas.width = copyCanvas.width;
+    canvas.height = copyCanvas.height;
 }
 function fixView()
 {
     copyContext.clearRect(0, 0, copyCanvas.width, copyCanvas.height);
     copyCanvas.width = window.innerWidth * 0.8;
     copyCanvas.height = 400;
-    copyContext.drawImage(canvas, 0, 0);
+    copyContext.drawImage(canvas,
+        0, 0, canvas.width, canvas.height,
+        0, 0, copyCanvas.width, copyCanvas.height,
+    );
     canvas.width = copyCanvas.width;
     canvas.height = copyCanvas.height;
     context.drawImage(copyCanvas, 0, 0);
@@ -51,13 +58,13 @@ function approx(a, b)
 function draw_line(x, y)
 {
     if (!isMousePressed) return;
-    context.beginPath();
     var tempX = x;
     var tempY = y;
     if (isPencil)
     {
         context.lineWidth = 2;
         context.strokeStyle = "black";
+        context.beginPath();
         context.moveTo(prevX, prevY);
         context.lineTo(x, y);
         context.stroke();
@@ -65,15 +72,19 @@ function draw_line(x, y)
     }
     else
     {
-        context.lineWidth = 20*1.25;
+        //context.lineWidth = 20;
+        context.lineWidth = 25;
         context.strokeStyle = "white";
         context.fillStyle = "white";
         //context.strokeStyle = "black";
         //context.fillStyle = "black";
-        context.translate(-10,-10);
-        context.fillRect(prevX, prevY, 20, 20);
-        context.fillRect(x, y, 20, 20);
-        context.translate(10,10);
+        context.beginPath();
+        var r = 10;
+        var d = r*2;
+        context.translate(-r,-r);
+        context.fillRect(prevX, prevY, d, d);
+        context.fillRect(x, y, d, d);
+        context.translate(r,r);
         context.moveTo(prevX, prevY);
         context.lineTo(x, y);
         context.stroke();
@@ -83,11 +94,6 @@ function draw_line(x, y)
     prevY = tempY;
 }
 window.addEventListener("resize", fixView);
-//function startDraw()
-//{
-    //isMousePressed = 1;
-    //draw_e(e);
-//}
 function endDraw() { isMousePressed = 0; }
 canvas.addEventListener("mousedown", function(e)
 {
