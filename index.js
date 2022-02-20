@@ -20,17 +20,17 @@ function swapTool()
 function resetCanvas()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    //context.fill();
+    copyContext.clearRect(0, 0, canvas.width, canvas.height);
 }
 function fixView()
 {
-    //if (Math.abs(canvas.width - (window.innerWidth * 0.8)) > 1)
-    //{
+    copyContext.clearRect(0, 0, copyCanvas.width, copyCanvas.height);
+    copyCanvas.width = window.innerWidth * 0.8;
+    copyCanvas.height = 400;
     copyContext.drawImage(canvas, 0, 0);
-    canvas.width = window.innerWidth * 0.8;
-    canvas.height = 400;
+    canvas.width = copyCanvas.width;
+    canvas.height = copyCanvas.height;
     context.drawImage(copyCanvas, 0, 0);
-    //}
 }
 fixView();
 function moveTowards(currX, currY, x, y, maxDelta)
@@ -93,7 +93,6 @@ canvas.addEventListener("mousedown", function(e)
 {
     prevX = e.clientX - canvas.getBoundingClientRect().left;
     prevY = e.clientY - canvas.getBoundingClientRect().top;
-    //startDraw();
     isMousePressed = 1;
     draw_line(prevX, prevY);
 });
@@ -102,17 +101,12 @@ canvas.addEventListener("touchstart", function(e)
     var touch = e.changedTouches[0];
     prevX = touch.clientX - canvas.getBoundingClientRect().left;
     prevY = touch.clientY - canvas.getBoundingClientRect().top;
-    //startDraw();
     isMousePressed = 1;
     draw_line(prevX, prevY);
 });
-//canvas.addEventListener("touchend", endDraw);
-//canvas.addEventListener("touchcancel", endDraw);
-//canvas.addEventListener("mouseup", endDraw);
 document.documentElement.addEventListener("mouseup", endDraw);
 document.documentElement.addEventListener("touchend", endDraw);
 document.documentElement.addEventListener("touchcancel", endDraw);
-//canvas.addEventListener("mouseout", endDraw);
 canvas.addEventListener("mousemove", function(e)
 {
     draw_line(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top);
@@ -128,7 +122,6 @@ canvas.addEventListener("touchmove", function(e)
 function showHints()
 {
     document.body.classList.add("show-inside");
-    //document.getElementById("hints").style.display = "block";
     
     let hints = document.getElementById("hints");
     hints.hidden = false;
