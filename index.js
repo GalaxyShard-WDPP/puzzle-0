@@ -20,6 +20,7 @@ function swapTool()
 function resetCanvas()
 {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    //context.fill();
 }
 function fixView()
 {
@@ -32,6 +33,21 @@ function fixView()
     //}
 }
 fixView();
+function moveTowards(currX, currY, x, y, maxDelta)
+{
+    var toX = x-currX;
+    var toY = y-currY;
+    var sqrDist = toX*toX + toY*toY;
+    if (sqrDist < maxDelta*maxDelta)
+        return {x:x, y:y};
+    
+    var dist = Math.sqrt(sqrDist);
+    return {x:toX/dist*maxDelta, y:toY/dist*maxDelta};
+}
+function approx(a, b)
+{
+    return Math.abs(a-b) < 0.01;
+}
 function draw_line(x, y)
 {
     if (!isMousePressed) return;
@@ -49,25 +65,19 @@ function draw_line(x, y)
     }
     else
     {
-        if (Math.abs(y - prevY) > Math.abs(x - prevX))
-        {
-            x = prevX;
-        }
-        else
-        {
-            y = prevY;
-        }
-        context.lineWidth = 20;
+        context.lineWidth = 20*1.25;
         context.strokeStyle = "white";
+        context.fillStyle = "white";
+        //context.strokeStyle = "black";
+        //context.fillStyle = "black";
+        context.translate(-10,-10);
+        context.fillRect(prevX, prevY, 20, 20);
+        context.fillRect(x, y, 20, 20);
+        context.translate(10,10);
         context.moveTo(prevX, prevY);
         context.lineTo(x, y);
         context.stroke();
         context.closePath();
-        //context.fillStyle = "black";
-        //context.moveTo(x,y);
-        //context.arc(x, y, 50, 0, 2 * Math.pi, false);
-        //context.fill();
-        //context.closePath();
     }
     prevX = tempX;
     prevY = tempY;
